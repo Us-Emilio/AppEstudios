@@ -6,7 +6,7 @@ import java.sql.Statement;
 import videojuegos.Modelo.Videojuego;
 
 public class VideojuegoDB {
-    public static void insertEmpresaBD(Connection con, Videojuego empresa) {
+    public static void insertVideojuego(Connection con, Videojuego empresa) {
         Statement sentencia;
 
         try {
@@ -21,7 +21,7 @@ public class VideojuegoDB {
         }
     }
     
-    public static void modificaEstudio(Connection con, Videojuego estudio, Videojuego nuevo){
+    public static void modificaVideojuego(Connection con, Videojuego estudio, Videojuego nuevo){
         Statement sentencia;
 
         try {
@@ -35,7 +35,7 @@ public class VideojuegoDB {
         }
     }
     
-    public static void eliminaEstudio(Connection con, Videojuego estudio){
+    public static void eliminaVideojuego(Connection con, Videojuego estudio){
         Statement sentencia;
 
         try {

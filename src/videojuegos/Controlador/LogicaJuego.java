@@ -1,6 +1,7 @@
 package videojuegos.Controlador;
 
 import videojuegos.Datos.DriverMySql;
+import videojuegos.Datos.VideojuegoDB;
 import videojuegos.Modelo.Videojuego;
 
 public class LogicaJuego {
@@ -12,13 +13,16 @@ public class LogicaJuego {
     }
     
     public static void insertJuego(Videojuego e){
-        
+        VideojuegoDB.insertVideojuego(conn.getConnection(), e);
+        conn.closeConnection();
     }
-    public static void modificaJuego(Videojuego e){
-        
+    public static void modificaJuego(Videojuego e, Videojuego j){
+        VideojuegoDB.modificaVideojuego(conn.getConnection(), e, j);
+        conn.closeConnection();
     }
     
-    public static void eliminaJuego(Videojuego e){
-        
+    public static void eliminaVideojuego(Videojuego e){
+        VideojuegoDB.insertVideojuego(conn.getConnection(), e);
+        conn.closeConnection();
     }
 }
