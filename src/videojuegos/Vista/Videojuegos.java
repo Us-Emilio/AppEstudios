@@ -30,7 +30,6 @@ public class Videojuegos {
 
     public static void main(String[] args) {
 
- 
         menu();
 
     }
@@ -49,9 +48,11 @@ public class Videojuegos {
             opcion = pedirEntero("Introduce una opcion del menu");
 
             switch (opcion) {
-
                 case 1:
-
+                    operacionAefectuar(opcion);
+                case 2:
+                    operacionAefectuar(opcion);
+                case 3:
                     operacionAefectuar(opcion);
             }
 
@@ -154,7 +155,7 @@ public class Videojuegos {
         } while (estado);
         return num;
     }
-    
+
     private static Estudio generaEstudio() throws Exception {
         String nombre;
         int equipo, id, cont = 0, opcion;
