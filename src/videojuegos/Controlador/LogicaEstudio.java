@@ -8,11 +8,8 @@ public class LogicaEstudio {
     
     private static DriverMySql conn;
     
-    public LogicaEstudio(){
-        conn = DriverMySql.getInstance();
-    }
-    
     public static void insertaEstudio(Estudio e) {
+        conn = DriverMySql.getInstance();
         EstudioDB.insertEmpresaBD(conn.getConnection(), e);
         conn.closeConnection();
     }

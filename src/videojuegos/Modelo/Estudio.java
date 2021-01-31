@@ -5,9 +5,9 @@ public class Estudio {
     private int Id_Estudio;
     private int EquiposDesarrollo;
     private String Nombre;
-    private Empresa empresa;
+    private int empresa;
 
-    public Estudio(int Id_Estudio, int EquiposDesarrollo, String Nombre, Empresa empresa) {
+    public Estudio(int Id_Estudio, int EquiposDesarrollo, String Nombre, int empresa) {
         this.Id_Estudio = Id_Estudio;
         this.EquiposDesarrollo = EquiposDesarrollo;
         this.Nombre = Nombre;
@@ -27,7 +27,7 @@ public class Estudio {
         return Nombre;
     }
 
-    public Empresa getEmpresa() {
+    public int getEmpresa() {
         return empresa;
     }
 
@@ -43,7 +43,7 @@ public class Estudio {
         this.Nombre = Nombre;
     }
 
-    public void setEmpresa(Empresa empresa) {
+    public void setEmpresa(int empresa) {
         this.empresa = empresa;
     }
 

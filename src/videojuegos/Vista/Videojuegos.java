@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import videojuegos.Controlador.LogicaEmpresa;
+import static videojuegos.Controlador.LogicaEmpresa.getEmpresa;
 import videojuegos.Controlador.LogicaEstudio;
 import videojuegos.Controlador.LogicaJuego;
 import videojuegos.Datos.DriverMySql;
@@ -29,7 +30,7 @@ public class Videojuegos {
     static ArrayList<Empresa> empresas = new ArrayList<>();
 
     public static void main(String[] args) {
-
+        empresas = getEmpresa();
         menu();
 
     }
@@ -158,8 +159,7 @@ public class Videojuegos {
 
     private static Estudio generaEstudio() throws Exception {
         String nombre;
-        int equipo, id, cont = 0, opcion;
-        Empresa propietario;
+        int equipo, id, cont = 0, opcion, propietario;
 
         id = pedirEntero("Deme su identificador numerico: ");
         System.out.println("Dame el nombre");
@@ -174,12 +174,12 @@ public class Videojuegos {
             }
         }
         if (cont > 0) {
-            System.out.println("Elija una opción: ");
+            System.out.println("¿A que empresa pertenece? Elija una opción: ");
             opcion = in.nextInt();
             if (opcion < 0 || opcion > empresas.size()) {
                 System.out.println("Opcion no valida");
             } else {
-                propietario = empresas.get(opcion - 1);
+                propietario = empresas.get(opcion - 1).getId();
                 Estudio es = new Estudio(id, equipo, nombre, propietario);
                 return es;
             }

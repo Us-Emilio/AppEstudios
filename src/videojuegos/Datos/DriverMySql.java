@@ -11,7 +11,7 @@ public class DriverMySql {
      
      private String bd = "videojuegos";
     private String usuario = "root";
-    private String password = "1234";
+    private String password = "";
     
      private Connection conn = null;
 
