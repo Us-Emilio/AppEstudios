@@ -81,7 +81,9 @@ public class Videojuegos {
 
             case 4:
 
-                mostrarEmpresas();
+               // mostrarEmpresas();
+               // LogicaEmpresa.getEmpresa();
+                System.out.println(LogicaEmpresa.getEmpresa());
         }
 
     }

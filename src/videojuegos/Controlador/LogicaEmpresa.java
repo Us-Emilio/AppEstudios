@@ -1,5 +1,6 @@
 package videojuegos.Controlador;
 
+import java.util.ArrayList;
 import videojuegos.Datos.DriverMySql;
 import videojuegos.Datos.EmpresaBD;
 import videojuegos.Modelo.Empresa;
@@ -9,6 +10,20 @@ import videojuegos.Modelo.Empresa;
  * @author Esther
  */
 public class LogicaEmpresa {
+    
+     public static ArrayList<Empresa> getEmpresa()
+    {
+        DriverMySql conn = null;
+        ArrayList<Empresa> ret = null;
+        
+       
+            conn = DriverMySql.getInstance();
+            ret = EmpresaBD.getEmpresaBD(conn.getInstance().getConnection());
+            conn.closeConnection();
+        
+        
+        return ret;
+    }
 
     public static void insertEmpresa(Empresa e) {
         DriverMySql conn = null;

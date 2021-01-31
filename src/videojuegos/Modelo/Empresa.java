@@ -55,7 +55,7 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return "id: " + this.getId() + ", numero de trabajadores: " + this.getNumeroTrabajadores() + ", nombre de empresa" + this.getNombreEmpresa();
+        return "id: " + this.getId() + " numero de trabajadores: " + this.getNumeroTrabajadores() + " nombre de empresa: " + this.getNombreEmpresa()+"\n";
     }
     
      public void datosEmpresa() {  //Pedimos los datos Implementamos el metodo de la interfaz
