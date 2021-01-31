@@ -12,7 +12,7 @@ public class EstudioDB {
         try {
             sentencia = con.createStatement();
             String sql = "INSERT INTO Estudio VALUES ('" + empresa.getId_Estudio() + "','" 
-                    + empresa.getEquiposDesarrollo() + "','" + empresa.getNombre()+ "','" + empresa.getIdEmpresa() + "')";
+                    + empresa.getEquiposDesarrollo() + "','" + empresa.getNombre()+ "','" + empresa.getEmpresa().getId() + "')";
 
             sentencia.executeUpdate(sql);
         } catch (SQLException ex) {

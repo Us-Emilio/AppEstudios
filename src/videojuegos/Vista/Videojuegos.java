@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import videojuegos.Controlador.LogicaEmpresa;
+import videojuegos.Controlador.LogicaEstudio;
+import videojuegos.Controlador.LogicaJuego;
 import videojuegos.Datos.DriverMySql;
 import videojuegos.Modelo.Empresa;
+import videojuegos.Modelo.Estudio;
+import videojuegos.Modelo.Videojuego;
 
 /**
  *
@@ -48,13 +52,13 @@ public class Videojuegos {
 
                 case 1:
 
-                    operacionAefectuar();
+                    operacionAefectuar(opcion);
             }
 
         } while (opcion != 0);
     }
 
-    public static void operacionAefectuar() {
+    public static void operacionAefectuar(int clase) {
 
         int opcion;
 
@@ -65,25 +69,60 @@ public class Videojuegos {
 
         opcion = pedirEntero("¿Qué operacion quieres efectuar?");
 
-        switch (opcion) {
+        try {
+            switch (clase) {
 
-            case 1:
-                Empresa e1 = new Empresa();
-                e1.datosEmpresa();
-                LogicaEmpresa.insertEmpresa(e1);
-                empresas.add(e1);
+                case 1:
+                    switch (opcion) {
+                        case 1:
+                            Empresa e1 = new Empresa();
+                            e1.datosEmpresa();
+                            LogicaEmpresa.insertEmpresa(e1);
+                            empresas.add(e1);
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            mostrarEmpresas();
+                            break;
+                    }
+                    break;
 
-                break;
+                case 2:
+                    switch (opcion) {
+                        case 1:
+                            //aun no va
+                            Videojuego vi = new Videojuego();
+                            LogicaJuego.insertJuego(vi);
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (opcion) {
+                        case 1:
+                            Estudio es = generaEstudio();
+                            LogicaEstudio.insertaEstudio(es);
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                    }
+                    break;
+            }
 
-            case 2:
-
-                break;
-
-            case 4:
-
-               // mostrarEmpresas();
-               // LogicaEmpresa.getEmpresa();
-                System.out.println(LogicaEmpresa.getEmpresa());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
     }
@@ -114,6 +153,39 @@ public class Videojuegos {
             }
         } while (estado);
         return num;
+    }
+    
+    private static Estudio generaEstudio() throws Exception {
+        String nombre;
+        int equipo, id, cont = 0, opcion;
+        Empresa propietario;
+
+        id = pedirEntero("Deme su identificador numerico: ");
+        System.out.println("Dame el nombre");
+        in.nextLine();
+        nombre = in.nextLine();
+        equipo = pedirEntero("Numero de equipos: ");
+
+        for (Empresa e : empresas) {
+            if (e != null) {
+                cont++;
+                System.out.println(cont + ". " + e);
+            }
+        }
+        if (cont > 0) {
+            System.out.println("Elija una opción: ");
+            opcion = in.nextInt();
+            if (opcion < 0 || opcion > empresas.size()) {
+                System.out.println("Opcion no valida");
+            } else {
+                propietario = empresas.get(opcion - 1);
+                Estudio es = new Estudio(id, equipo, nombre, propietario);
+                return es;
+            }
+        } else {
+            throw new Exception("No hay empresas, no puede continuar");
+        }
+        return null;
     }
 
 }

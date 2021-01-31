@@ -1,6 +1,10 @@
 package videojuegos.Modelo;
 
+import java.util.Scanner;
+import videojuegos.Vista.Videojuegos;
+
 public class Videojuego {
+
     private int IdVideojuego;
     private int NumNiveles;
     private String NombreJuego;
@@ -13,6 +17,10 @@ public class Videojuego {
         this.NombreJuego = NombreJuego;
         this.IdEmpresa = IdEmpresa;
         this.IdEstudio = IdEstudio;
+    }
+
+    public Videojuego() {
+
     }
 
     //<editor-fold defaultstate="collapsed" desc="Geters y seters">
@@ -56,4 +64,23 @@ public class Videojuego {
         this.IdEstudio = IdEstudio;
     }
     //</editor-fold>
+
+    public void datosVideojuego() {  //Pedimos los datos Implementamos el metodo de la interfaz
+        Scanner sc = new Scanner(System.in);
+
+        this.IdVideojuego = Videojuegos.pedirEntero("Introduce el ID de la Empresa");
+
+        this.NumNiveles = Videojuegos.pedirEntero("Número de trabajadores:");
+
+        System.out.println("Nombre de la Empresa: ");
+        this.NombreJuego = sc.nextLine();
+        /*
+        System.out.println("A que empresa pertenece?");
+        this.NumNiveles = Videojuegos.pedirEntero("Opcion: ");
+        
+        System.out.println("Que estudio lo desarrolla?");
+        this.IdEstudio = Videojuegos.pedirEntero("Opcion: ");
+        */
+
+    }
 }

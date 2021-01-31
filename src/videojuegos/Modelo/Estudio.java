@@ -1,20 +1,20 @@
 package videojuegos.Modelo;
 
 public class Estudio {
+
     private int Id_Estudio;
     private int EquiposDesarrollo;
     private String Nombre;
-    private int IdEmpresa;
+    private Empresa empresa;
 
-    public Estudio(int Id_Estudio, int EquiposDesarrollo, String Nombre, int IdEmpresa) {
+    public Estudio(int Id_Estudio, int EquiposDesarrollo, String Nombre, Empresa empresa) {
         this.Id_Estudio = Id_Estudio;
         this.EquiposDesarrollo = EquiposDesarrollo;
         this.Nombre = Nombre;
-        this.IdEmpresa = IdEmpresa;
+        this.empresa = empresa;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Geters y seters">
-    
     public int getId_Estudio() {
         return Id_Estudio;
     }
@@ -27,14 +27,12 @@ public class Estudio {
         return Nombre;
     }
 
-    public int getIdEmpresa() {
-        return IdEmpresa;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    // Setters
-    
-    public void setId_Estudio(int Id_videoJu) {
-        this.Id_Estudio = Id_videoJu;
+    public void setId_Estudio(int Id_Estudio) {
+        this.Id_Estudio = Id_Estudio;
     }
 
     public void setEquiposDesarrollo(int EquiposDesarrollo) {
@@ -45,8 +43,9 @@ public class Estudio {
         this.Nombre = Nombre;
     }
 
-    public void setIdEmpresa(int IdEmpresa) {
-        this.IdEmpresa = IdEmpresa;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
+
     //</editor-fold>
 }
