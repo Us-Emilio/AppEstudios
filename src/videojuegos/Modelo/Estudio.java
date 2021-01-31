@@ -48,4 +48,11 @@ public class Estudio {
     }
 
     //</editor-fold>
+
+    @Override
+    public String toString() {
+        return "Identificador: " + Id_Estudio + " | Nombre: " + Nombre + " | Equipos de desarrollo: " + EquiposDesarrollo + " | Empresa matriz: " + empresa + '.';
+    }
+    
+    
 }

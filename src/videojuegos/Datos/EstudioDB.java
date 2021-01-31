@@ -1,11 +1,35 @@
 package videojuegos.Datos;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import videojuegos.Modelo.Estudio;
 
 public class EstudioDB {
+    public static ArrayList<Estudio> listaEstudios(Connection con) {
+        ArrayList<Estudio> ret = new ArrayList<>();
+        
+        Statement sentencia;
+        
+        try
+        {
+            sentencia = con.createStatement();
+            sentencia.executeQuery("SELECT * FROM Estudio");
+            ResultSet rs = sentencia.getResultSet();
+            while (rs.next()) {
+                    ret.add(new Estudio(rs.getInt("id"), rs.getInt("equipo_desarrollo"), rs.getString("nombre_estudio"), rs.getInt("id_empresa")));
+            }
+        }
+        catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        
+        return ret;
+    }
+    
     public static void insertEmpresaBD(Connection con, Estudio empresa) {
         Statement sentencia;
 
@@ -20,14 +44,14 @@ public class EstudioDB {
         }
     }
     
-    public static void modificaEstudio(Connection con, Estudio estudio, Estudio nuevo){
+    public static void modificaEstudio(Connection con, Estudio nuevo){
         Statement sentencia;
 
         try {
             sentencia = con.createStatement();
         
             String sql = "UPDATE Estudio SET equipo_desarrollo='" + nuevo.getEquiposDesarrollo() 
-                    + "', nombre_estudio='" + nuevo.getNombre() + "' where id='" + estudio.getId_Estudio() + "';";
+                    + "', nombre_estudio='" + nuevo.getNombre() + "' where id='" + nuevo.getId_Estudio() + "';";
             sentencia.executeUpdate(sql);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -11,6 +11,7 @@ import java.util.Scanner;
 import videojuegos.Controlador.LogicaEmpresa;
 import static videojuegos.Controlador.LogicaEmpresa.getEmpresa;
 import videojuegos.Controlador.LogicaEstudio;
+import static videojuegos.Controlador.LogicaEstudio.getEstudios;
 import videojuegos.Controlador.LogicaJuego;
 import videojuegos.Datos.DriverMySql;
 import videojuegos.Modelo.Empresa;
@@ -27,10 +28,11 @@ public class Videojuegos {
      * @param args the command line arguments
      */
     static Scanner in = new Scanner(System.in);
-    static ArrayList<Empresa> empresas = new ArrayList<>();
+    static ArrayList<Empresa> empresas = getEmpresa();
+    static ArrayList<Estudio> estudios = getEstudios();
 
     public static void main(String[] args) {
-        empresas = getEmpresa();
+
         menu();
 
     }
@@ -46,7 +48,7 @@ public class Videojuegos {
             System.out.println("3. Estudio");
             System.out.println("0. Salir");
 
-            opcion = pedirEntero("Introduce una opcion del menu");
+            opcion = pedirEntero("Introduce una opcion del menu: ");
 
             switch (opcion) {
                 case 1:
@@ -56,6 +58,8 @@ public class Videojuegos {
                 case 3:
                     operacionAefectuar(opcion);
             }
+            empresas = getEmpresa();
+            estudios = getEstudios();
 
         } while (opcion != 0);
     }
@@ -69,7 +73,7 @@ public class Videojuegos {
         System.out.println("3. Eliminar");
         System.out.println("4. Listar contenido");
 
-        opcion = pedirEntero("¿Qué operacion quieres efectuar?");
+        opcion = pedirEntero("¿Qué operacion quieres efectuar? ");
 
         try {
             switch (clase) {
@@ -108,16 +112,21 @@ public class Videojuegos {
                     }
                     break;
                 case 3:
+                    Estudio es;
                     switch (opcion) {
                         case 1:
-                            Estudio es = generaEstudio();
+                            es = generaEstudio();
                             LogicaEstudio.insertaEstudio(es);
                             break;
                         case 2:
+                            es = modificacionEstudio();
+                            LogicaEstudio.modEstudio(es);
                             break;
                         case 3:
+                            LogicaEstudio.delEstudio(eliminarEstudio());
                             break;
                         case 4:
+                            listaEstudios();
                             break;
                     }
                     break;
@@ -137,6 +146,18 @@ public class Videojuegos {
         }
     }
 
+    public static void listaOrdenadaEmpresas() {
+        int cont = 0;
+        for (Empresa e : empresas) {
+            cont++;
+            if (e != null) {
+                System.out.println("\t" + cont + ". " + e);
+            }
+        }
+    }
+    
+    
+
     public static int pedirEntero(String pregunta) {
         boolean estado = true;
         int num = 0;
@@ -144,22 +165,27 @@ public class Videojuegos {
         do {
 
             try {
-                System.out.println(pregunta);
+                System.out.print(pregunta);
                 num = in.nextInt();
                 estado = false;
+                if (num < 0) {
+                    throw new InputMismatchException("El numero no puede ser menor que 0.");
+                }
 
             } catch (InputMismatchException e) {
                 noInt = in.nextLine();
-                System.out.println(noInt + " No es entero!!!");
+                System.out.println(noInt + " Error: " + e.getMessage());
 
             }
         } while (estado);
         return num;
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Estudio">
 
     private static Estudio generaEstudio() throws Exception {
         String nombre;
-        int equipo, id, cont = 0, opcion, propietario;
+        int equipo, id, opcion, propietario;
 
         id = pedirEntero("Deme su identificador numerico: ");
         System.out.println("Dame el nombre");
@@ -167,15 +193,9 @@ public class Videojuegos {
         nombre = in.nextLine();
         equipo = pedirEntero("Numero de equipos: ");
 
-        for (Empresa e : empresas) {
-            if (e != null) {
-                cont++;
-                System.out.println(cont + ". " + e);
-            }
-        }
-        if (cont > 0) {
-            System.out.println("¿A que empresa pertenece? Elija una opción: ");
-            opcion = in.nextInt();
+        listaOrdenadaEmpresas();
+        if (empresas.size() > 0) {
+            opcion = pedirEntero("¿A que empresa pertenece? Elija una opción: ");
             if (opcion < 0 || opcion > empresas.size()) {
                 System.out.println("Opcion no valida");
             } else {
@@ -189,4 +209,62 @@ public class Videojuegos {
         return null;
     }
 
+    private static Estudio modificacionEstudio() {
+        int eleccion, desarollo, propietario;
+        String nombre;
+        Estudio elegido;
+
+        listaOrdenadaEstudios();
+        eleccion = pedirEntero("Que tabla modificara? Elija una opción: ");
+        elegido = estudios.get(eleccion - 1);
+        System.out.print("Dale un nuevo nombre: ");
+        in.nextLine();
+        nombre = in.nextLine();
+        desarollo = pedirEntero("Grupos de desarrollo: ");
+        listaOrdenadaEmpresas();
+        propietario = pedirEntero("Nuevo porpietario (elige una opción): ");
+
+        if (eleccion > empresas.size() && propietario > empresas.size()) {
+            System.out.println("Opcion no valida");
+        } else {
+            propietario = empresas.get(propietario - 1).getId();
+            Estudio es = new Estudio(elegido.getId_Estudio(), desarollo, nombre, propietario);
+            return es;
+        }
+        return null;
+    }
+
+    private static Estudio eliminarEstudio() {
+        int estudio;
+        listaOrdenadaEstudios();
+
+        estudio = pedirEntero("¿Que estudio eliminara? Escoja una opción: ");
+
+        if (estudio > estudios.size()) {
+            System.out.println("Opcion no valida");
+        } else {
+            return estudios.get(estudio - 1);
+        }
+        return null;
+
+    }
+    
+    public static void listaEstudios() {
+        for (Estudio e : estudios) {
+            if (e != null) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public static void listaOrdenadaEstudios() {
+        int cont = 0;
+        for (Estudio e : estudios) {
+            cont++;
+            if (e != null) {
+                System.out.println("\t" + cont + ". " + e);
+            }
+        }
+    }
+    //</editor-fold>
 }
