@@ -1,22 +1,22 @@
 package videojuegos.Modelo;
 
 public class Estudio {
-    private int Id_videoJu;
+    private int Id_Estudio;
     private int EquiposDesarrollo;
     private String Nombre;
     private int IdEmpresa;
 
-    public Estudio(int Id_videoJu, int EquiposDesarrollo, String Nombre, int IdEmpresa) {
-        this.Id_videoJu = Id_videoJu;
+    public Estudio(int Id_Estudio, int EquiposDesarrollo, String Nombre, int IdEmpresa) {
+        this.Id_Estudio = Id_Estudio;
         this.EquiposDesarrollo = EquiposDesarrollo;
         this.Nombre = Nombre;
         this.IdEmpresa = IdEmpresa;
     }
 
-    //Getters
+    //<editor-fold defaultstate="collapsed" desc="Geters y seters">
     
-    public int getId_videoJu() {
-        return Id_videoJu;
+    public int getId_Estudio() {
+        return Id_Estudio;
     }
 
     public int getEquiposDesarrollo() {
@@ -33,8 +33,8 @@ public class Estudio {
 
     // Setters
     
-    public void setId_videoJu(int Id_videoJu) {
-        this.Id_videoJu = Id_videoJu;
+    public void setId_Estudio(int Id_videoJu) {
+        this.Id_Estudio = Id_videoJu;
     }
 
     public void setEquiposDesarrollo(int EquiposDesarrollo) {
@@ -48,5 +48,5 @@ public class Estudio {
     public void setIdEmpresa(int IdEmpresa) {
         this.IdEmpresa = IdEmpresa;
     }
-    
+    //</editor-fold>
 }

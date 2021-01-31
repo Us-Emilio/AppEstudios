@@ -56,6 +56,4 @@ public class Videojuego {
         this.IdEstudio = IdEstudio;
     }
     //</editor-fold>
-    
-    
 }
