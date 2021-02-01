@@ -395,8 +395,8 @@ public class Videojuegos {
         in.nextLine();
         nombre = in.nextLine();
         trabajador = pedirEntero("numero de trabajadores: ");
-        listaOrdenadaEmpresas();
-       // propietario = pedirEntero("Nuevo porpietario (elige una opción): ");
+       // listaOrdenadaEmpresas();
+     
 
         if (eleccion > empresas.size() ) {
             System.out.println("Opcion no valida");
