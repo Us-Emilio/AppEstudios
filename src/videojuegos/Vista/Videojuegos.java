@@ -17,7 +17,6 @@ import videojuegos.Modelo.Empresa;
 import videojuegos.Modelo.Estudio;
 import videojuegos.Modelo.Videojuego;
 
-
 public class Videojuegos {
 
     /**
@@ -55,8 +54,6 @@ public class Videojuegos {
                 case 3:
                     operacionAefectuar(opcion);
             }
-            empresas = getEmpresa();
-            estudios = getEstudios();
 
         } while (opcion != 0);
     }
@@ -74,23 +71,23 @@ public class Videojuegos {
 
         try {
             switch (clase) {
-
                 case 1:
-                   Empresa e1= new Empresa();;
+                    Empresa e1 = new Empresa();
+                    ;
                     switch (opcion) {
-                          
+
                         case 1:
-                        
+
                             e1.datosEmpresa();
                             LogicaEmpresa.insertEmpresa(e1);
-                        
+
                             break;
                         case 2:
                             e1 = modificacionEmpresa();
                             LogicaEmpresa.modifyEmpresaBD(e1);
-                        
+
                             break;
-                    
+
                         case 3:
                             LogicaEmpresa.deleteEmpresa(eliminadorEmpresa());
                             break;
@@ -138,6 +135,9 @@ public class Videojuegos {
                     }
                     break;
             }
+            empresas = getEmpresa();
+            estudios = getEstudios();
+            juegos = LogicaJuego.getVideojuegos();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -162,8 +162,6 @@ public class Videojuegos {
             }
         }
     }
-    
-    
 
     public static int pedirEntero(String pregunta) {
         boolean estado = true;
@@ -187,9 +185,8 @@ public class Videojuegos {
         } while (estado);
         return num;
     }
-    
-    //<editor-fold defaultstate="collapsed" desc="Estudio">
 
+    //<editor-fold defaultstate="collapsed" desc="Estudio">
     private static Estudio generaEstudio() throws Exception {
         String nombre;
         int equipo, id, opcion, propietario;
@@ -255,7 +252,7 @@ public class Videojuegos {
         return null;
 
     }
-    
+
     public static void listaEstudios() {
         for (Estudio e : estudios) {
             if (e != null) {
@@ -274,9 +271,8 @@ public class Videojuegos {
         }
     }
     //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="Videojuego">
-    
     public static void listaVideojuegos() {
         for (Videojuego e : juegos) {
             if (e != null) {
@@ -294,19 +290,19 @@ public class Videojuegos {
             }
         }
     }
-    
-    private static Videojuego generaJuego() throws Exception{
+
+    private static Videojuego generaJuego() throws Exception {
         String nombre;
         int eleccion, id, niveles;
-        
+
         id = pedirEntero("Deme su identificador numerico: ");
         System.out.print("Dame el nombre");
         in.nextLine();
         nombre = in.nextLine();
         niveles = pedirEntero("¿Cuantos niveles tendra el videojuego? ");
-        
+
         listaOrdenadaEstudios();
-        
+
         if (estudios.size() > 0) {
             eleccion = pedirEntero("¿Que estudio lo desarrolla? Escoja una opción: ");
             if (eleccion > estudios.size()) {
@@ -321,69 +317,65 @@ public class Videojuegos {
         }
         return null;
     }
-    
-    private static Videojuego modificadorJuego(){
+
+    private static Videojuego modificadorJuego() {
         String nombre;
         int eleccion, niveles, juego;
-        
+
         listaOrdenadaVideoojuegos();
         juego = pedirEntero("Elija el videojuego a modificar: ");
-        
+
         System.out.print("Nuevo nombre: ");
         in.nextLine();
         nombre = in.nextLine();
-        
+
         niveles = pedirEntero("Nuevo numero de niveles: ");
-        
+
         listaOrdenadaEstudios();
         eleccion = pedirEntero("Nuevo estudio de desarrollo: ");
-        
+
         if (juego > juegos.size() && eleccion > estudios.size()) {
             System.out.println("Opcion no valida");
         } else {
             Estudio propietario = estudios.get(eleccion - 1);
-            Videojuego vi = new Videojuego(juegos.get(juego - 1).getIdVideojuego(), niveles, nombre, 
-                    propietario.getEmpresa(),propietario.getId_Estudio());
+            Videojuego vi = new Videojuego(juegos.get(juego - 1).getIdVideojuego(), niveles, nombre,
+                    propietario.getEmpresa(), propietario.getId_Estudio());
             return vi;
         }
         return null;
     }
-    
-    private static Videojuego eliminadorJuego(){
+
+    private static Videojuego eliminadorJuego() {
         int juego;
-        
+
         listaOrdenadaVideoojuegos();
         juego = pedirEntero("¿Que juego desea eliminar? Elija una opción: ");
-        
+
         if (juego > juegos.size()) {
             System.out.println("Opcion no valida");
         } else {
             return juegos.get(juego - 1);
         }
         return null;
-        
+
     }
-    
-    
-    private static Empresa eliminadorEmpresa(){
+
+    private static Empresa eliminadorEmpresa() {
         int empr;
-        
+
         listaOrdenadaEmpresas();
         empr = pedirEntero("¿Que empresa desea eliminar? Elija una opción: ");
-        
+
         if (empr > empresas.size()) {
             System.out.println("Opcion no valida");
         } else {
             return empresas.get(empr - 1);
         }
         return null;
-        
+
     }
-    
-    
-     
-     
-      private static Empresa modificacionEmpresa() {
+
+    private static Empresa modificacionEmpresa() {
         int eleccion, trabajador;
         String nombre;
         Empresa elegida;
@@ -395,22 +387,17 @@ public class Videojuegos {
         in.nextLine();
         nombre = in.nextLine();
         trabajador = pedirEntero("numero de trabajadores: ");
-       // listaOrdenadaEmpresas();
-     
+        // listaOrdenadaEmpresas();
 
-        if (eleccion > empresas.size() ) {
+        if (eleccion > empresas.size()) {
             System.out.println("Opcion no valida");
         } else {
-           // propietario = empresas.get(propietario - 1).getId();
+            // propietario = empresas.get(propietario - 1).getId();
             Empresa em = new Empresa(elegida.getId(), trabajador, nombre);
             return em;
         }
         return null;
     }
 
-     
-     
-    
     //</editor-fold>
-    
 }

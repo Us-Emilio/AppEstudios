@@ -11,7 +11,7 @@ public class LogicaEstudio {
 
     public static ArrayList<Estudio> getEstudios() {
         ArrayList<Estudio> ret = null;
-        
+
         ret = EstudioDB.listaEstudios(conn.getConnection());
         conn.closeConnection();
 
