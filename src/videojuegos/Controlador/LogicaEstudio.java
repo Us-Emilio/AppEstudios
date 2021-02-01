@@ -2,9 +2,7 @@ package videojuegos.Controlador;
 
 import java.util.ArrayList;
 import videojuegos.Datos.DriverMySql;
-import videojuegos.Datos.EmpresaBD;
 import videojuegos.Datos.EstudioDB;
-import videojuegos.Modelo.Empresa;
 import videojuegos.Modelo.Estudio;
 
 public class LogicaEstudio {
@@ -13,8 +11,7 @@ public class LogicaEstudio {
 
     public static ArrayList<Estudio> getEstudios() {
         ArrayList<Estudio> ret = null;
-
-        conn = DriverMySql.getInstance();
+        
         ret = EstudioDB.listaEstudios(conn.getConnection());
         conn.closeConnection();
 

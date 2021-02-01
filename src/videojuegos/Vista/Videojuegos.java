@@ -13,7 +13,6 @@ import static videojuegos.Controlador.LogicaEmpresa.getEmpresa;
 import videojuegos.Controlador.LogicaEstudio;
 import static videojuegos.Controlador.LogicaEstudio.getEstudios;
 import videojuegos.Controlador.LogicaJuego;
-import videojuegos.Datos.DriverMySql;
 import videojuegos.Modelo.Empresa;
 import videojuegos.Modelo.Estudio;
 import videojuegos.Modelo.Videojuego;
@@ -30,6 +29,7 @@ public class Videojuegos {
     static Scanner in = new Scanner(System.in);
     static ArrayList<Empresa> empresas = getEmpresa();
     static ArrayList<Estudio> estudios = getEstudios();
+    static ArrayList<Videojuego> juegos = LogicaJuego.getVideojuegos();
 
     public static void main(String[] args) {
 
@@ -100,14 +100,17 @@ public class Videojuegos {
                     switch (opcion) {
                         case 1:
                             //aun no va
-                            Videojuego vi = new Videojuego();
+                            Videojuego vi = generaJuego();
                             LogicaJuego.insertJuego(vi);
                             break;
                         case 2:
+                            LogicaJuego.modificaJuego(modificadorJuego());
                             break;
                         case 3:
+                            LogicaJuego.eliminaVideojuego(eliminadorJuego());
                             break;
                         case 4:
+                            listaVideojuegos();
                             break;
                     }
                     break;
@@ -267,4 +270,95 @@ public class Videojuegos {
         }
     }
     //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Videojuego">
+    
+    public static void listaVideojuegos() {
+        for (Videojuego e : juegos) {
+            if (e != null) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public static void listaOrdenadaVideoojuegos() {
+        int cont = 0;
+        for (Videojuego e : juegos) {
+            cont++;
+            if (e != null) {
+                System.out.println("\t" + cont + ". " + e);
+            }
+        }
+    }
+    
+    private static Videojuego generaJuego() throws Exception{
+        String nombre;
+        int eleccion, id, niveles;
+        
+        id = pedirEntero("Deme su identificador numerico: ");
+        System.out.print("Dame el nombre");
+        in.nextLine();
+        nombre = in.nextLine();
+        niveles = pedirEntero("¿Cuantos niveles tendra el videojuego? ");
+        
+        listaOrdenadaEstudios();
+        
+        if (estudios.size() > 0) {
+            eleccion = pedirEntero("¿Que estudio lo desarrolla? Escoja una opción: ");
+            if (eleccion > estudios.size()) {
+                System.out.println("Opcion no valida");
+            } else {
+                Estudio propietario = estudios.get(eleccion - 1);
+                Videojuego vi = new Videojuego(id, niveles, nombre, propietario.getEmpresa(), propietario.getId_Estudio());
+                return vi;
+            }
+        } else {
+            throw new Exception("No hay estudios, no puede continuar");
+        }
+        return null;
+    }
+    
+    private static Videojuego modificadorJuego(){
+        String nombre;
+        int eleccion, niveles, juego;
+        
+        listaOrdenadaVideoojuegos();
+        juego = pedirEntero("Elija el videojuego a modificar: ");
+        
+        System.out.print("Nuevo nombre: ");
+        in.nextLine();
+        nombre = in.nextLine();
+        
+        niveles = pedirEntero("Nuevo numero de niveles: ");
+        
+        listaOrdenadaEstudios();
+        eleccion = pedirEntero("Nuevo estudio de desarrollo: ");
+        
+        if (juego > juegos.size() && eleccion > estudios.size()) {
+            System.out.println("Opcion no valida");
+        } else {
+            Estudio propietario = estudios.get(eleccion - 1);
+            Videojuego vi = new Videojuego(juegos.get(juego - 1).getIdVideojuego(), niveles, nombre, 
+                    propietario.getEmpresa(),propietario.getId_Estudio());
+            return vi;
+        }
+        return null;
+    }
+    
+    private static Videojuego eliminadorJuego(){
+        int juego;
+        
+        listaOrdenadaVideoojuegos();
+        juego = pedirEntero("¿Que juego desea eliminar? Elija una opción: ");
+        
+        if (juego > juegos.size()) {
+            System.out.println("Opcion no valida");
+        } else {
+            return juegos.get(juego - 1);
+        }
+        return null;
+        
+    }
+    //</editor-fold>
+    
 }

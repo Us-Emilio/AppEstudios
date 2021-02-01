@@ -1,8 +1,5 @@
 package videojuegos.Modelo;
 
-import java.util.Scanner;
-import videojuegos.Vista.Videojuegos;
-
 public class Videojuego {
 
     private int IdVideojuego;
@@ -65,22 +62,8 @@ public class Videojuego {
     }
     //</editor-fold>
 
-    public void datosVideojuego() {  //Pedimos los datos Implementamos el metodo de la interfaz
-        Scanner sc = new Scanner(System.in);
-
-        this.IdVideojuego = Videojuegos.pedirEntero("Introduce el ID de la Empresa");
-
-        this.NumNiveles = Videojuegos.pedirEntero("Número de trabajadores:");
-
-        System.out.println("Nombre de la Empresa: ");
-        this.NombreJuego = sc.nextLine();
-        /*
-        System.out.println("A que empresa pertenece?");
-        this.NumNiveles = Videojuegos.pedirEntero("Opcion: ");
-        
-        System.out.println("Que estudio lo desarrolla?");
-        this.IdEstudio = Videojuegos.pedirEntero("Opcion: ");
-        */
-
+    @Override
+    public String toString() {
+        return "Identificador: " + IdVideojuego + " | Nombre: " + NombreJuego + " | Numero de niveles=" + NumNiveles + " | Empresa porpietaria: " + IdEmpresa + ", Estudio de desarrollo: " + IdEstudio + '.';
     }
 }
