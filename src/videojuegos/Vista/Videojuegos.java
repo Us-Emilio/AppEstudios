@@ -17,10 +17,7 @@ import videojuegos.Modelo.Empresa;
 import videojuegos.Modelo.Estudio;
 import videojuegos.Modelo.Videojuego;
 
-/**
- *
- * @author Kurin
- */
+
 public class Videojuegos {
 
     /**
@@ -79,16 +76,23 @@ public class Videojuegos {
             switch (clase) {
 
                 case 1:
+                   Empresa e1= new Empresa();;
                     switch (opcion) {
+                          
                         case 1:
-                            Empresa e1 = new Empresa();
+                        
                             e1.datosEmpresa();
                             LogicaEmpresa.insertEmpresa(e1);
-                            empresas.add(e1);
+                        
                             break;
                         case 2:
+                            e1 = modificacionEmpresa();
+                            LogicaEmpresa.modifyEmpresaBD(e1);
+                        
                             break;
+                    
                         case 3:
+                            LogicaEmpresa.deleteEmpresa(eliminadorEmpresa());
                             break;
                         case 4:
                             mostrarEmpresas();
@@ -359,6 +363,54 @@ public class Videojuegos {
         return null;
         
     }
+    
+    
+    private static Empresa eliminadorEmpresa(){
+        int empr;
+        
+        listaOrdenadaEmpresas();
+        empr = pedirEntero("¿Que empresa desea eliminar? Elija una opción: ");
+        
+        if (empr > empresas.size()) {
+            System.out.println("Opcion no valida");
+        } else {
+            return empresas.get(empr - 1);
+        }
+        return null;
+        
+    }
+    
+    
+     
+     
+      private static Empresa modificacionEmpresa() {
+        int eleccion, trabajador;
+        String nombre;
+        Empresa elegida;
+
+        listaOrdenadaEmpresas();
+        eleccion = pedirEntero("Que tabla modificara? Elija una opción: ");
+        elegida = empresas.get(eleccion - 1);
+        System.out.print("Dale un nuevo nombre: ");
+        in.nextLine();
+        nombre = in.nextLine();
+        trabajador = pedirEntero("numero de trabajadores: ");
+        listaOrdenadaEmpresas();
+       // propietario = pedirEntero("Nuevo porpietario (elige una opción): ");
+
+        if (eleccion > empresas.size() ) {
+            System.out.println("Opcion no valida");
+        } else {
+           // propietario = empresas.get(propietario - 1).getId();
+            Empresa em = new Empresa(elegida.getId(), trabajador, nombre);
+            return em;
+        }
+        return null;
+    }
+
+     
+     
+    
     //</editor-fold>
     
 }

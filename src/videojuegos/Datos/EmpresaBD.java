@@ -61,13 +61,14 @@ public class EmpresaBD {
         }
     }
 
-    public static void modifyEmpresaBD(Connection con, Empresa e, Empresa nueva) {
+    public static void modifyEmpresaBD(Connection con, Empresa nueva) {
+         Statement sentencia;
         try {
-            Statement sentencia;
+           
 
             sentencia = con.createStatement();
         
-            String sql = "update empresa set trabajadores='" + nueva.getNumeroTrabajadores() + "', nombre_empresa='" + nueva.getNombreEmpresa() + "' where id='" + e.getId() + "';";
+            String sql = "update empresa set trabajadores='" + nueva.getNumeroTrabajadores() + "', nombre_empresa='" + nueva.getNombreEmpresa() + "' where id='" + nueva.getId() + "';";
             sentencia.executeUpdate(sql);
           
         } catch (SQLException ex) {
@@ -75,4 +76,18 @@ public class EmpresaBD {
         }
 
     }
+    
+    /* public static void modificaEstudio(Connection con, Estudio nuevo){
+        Statement sentencia;
+
+        try {
+            sentencia = con.createStatement();
+        
+            String sql = "UPDATE Estudio SET equipo_desarrollo='" + nuevo.getEquiposDesarrollo() 
+                    + "', nombre_estudio='" + nuevo.getNombre() + "' where id='" + nuevo.getId_Estudio() + "';";
+            sentencia.executeUpdate(sql);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }*/
 }
